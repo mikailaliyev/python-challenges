@@ -5,7 +5,6 @@
 # Divide each of the numbers in the array by the number the user entered 
 # and display the answers shown to two decimal places
 from array import *
-import random
 
 arr = array ('f', [12.55, 84.54, 61.88, 99.11, 57.54])
 
