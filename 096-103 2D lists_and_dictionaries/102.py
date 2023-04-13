@@ -5,7 +5,7 @@ count = 0
 
 people = {}
 
-for i in range(0, 2):
+for i in range(0, 4):
     name = input("Enter a name\n")
     age = int(input("Enter age\n"))
     shoe_size = input("Enter shoe size\n")
