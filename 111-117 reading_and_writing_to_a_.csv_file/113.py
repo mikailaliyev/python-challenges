@@ -3,7 +3,7 @@
 # After all the data has been added, ask for an author 
 # and display all the books in the list by that author. 
 # If there are no books by that author in the list, display a suitable message
-# import csv
+import csv
 
 file = open("Books.csv", "r")
 print(file.read())
