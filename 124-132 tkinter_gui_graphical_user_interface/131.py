@@ -5,7 +5,6 @@ from tkinter import *
 
 def create_csv():
     file = open("Name&Age.csv", "w")
-    file.write("File created\n")
     file.close()
     
 def save_to_csv():
