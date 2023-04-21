@@ -7,7 +7,6 @@ from tkinter import *
 def update_color():
     window_color = color_list["text"]
     window.configure(background=window_color)
-    print(color_list['text'])
 
 window = Tk()
 window.title("Change color")
@@ -18,7 +17,7 @@ select_color.set("red")
 color_list = OptionMenu(window, select_color, "green", "blue", "yellow")
 color_list.place(x=10, y=10, width=150)
 
-button = Button(text="Change the color", command=update_color)
+button = Button(text="Click Me", command=update_color)
 button.place(x=10, y=50)
 
 window.mainloop()
