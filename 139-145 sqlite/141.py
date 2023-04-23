@@ -25,8 +25,8 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS Books(
     date_published integer NOT NULL);""")
 
 values_for_books = [("1", "De Profundis", "Oscar Wilde", "1905"),
-                      ("2", "Harry Potter and the chamber of secrets", "J.K. Rowling", "1998"),
-                      ("3", "Harry Potter and the prisoner of Azkaban", "J.K. Rowling", "1999"),
+                      ("2", "Harry Potter and the chamber of secrets", "J.K.Rowling", "1998"),
+                      ("3", "Harry Potter and the prisoner of Azkaban", "J.K.Rowling", "1999"),
                       ("4", "Lyrebird", "Cecelia Ahern", "2017"),
                       ("5", "Murder of the Orient Express", "Agatha Christie", "1934"),
                       ("6", "Perfect", "Cecelia Ahern", "2017"),
