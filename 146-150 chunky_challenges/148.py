@@ -66,49 +66,49 @@ def create_user():
     file.close()
     
 
-def password_raiting(raiting, user_password):
+def password_rating(rating, user_password):
     special_chars = ["!", "£", "$", "%", "&", "<", "*", "@"]
     numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-    raiting_state = {}
+    rating_state = {}
     
-    #cheking compliance with the rules
+    #cheсking compliance with the rules
     if len(user_password) >= 8:
-        raiting += 1
+        rating += 1
         
     for letter in user_password:
         if letter.isupper():
-            raiting_state["up"] = "ok"
+            rating_state["up"] = "ok"
         if letter.islower():
-            raiting_state["low"] = "ok"
+            rating_state["low"] = "ok"
         if letter in special_chars:
-            raiting_state["spc"] = "ok"
+            rating_state["spc"] = "ok"
         if letter in str(numbers):
-            raiting_state["nums"] = "ok"
-    #adding all raiting check results together
-    for i in raiting_state:
-        if raiting_state[i] == "ok":
-            raiting += 1
+            rating_state["nums"] = "ok"
+    #adding all rating check results together
+    for i in rating_state:
+        if rating_state[i] == "ok":
+            rating += 1
 
-    return raiting
+    return rating
 
 def approve_password():
     approved_pass = False
     while approved_pass == False:
         user_password = input("Enter a password:\n")
-        raiting = 0
+        rating = 0
         
-        #getting password raiting    
-        final_raiting = password_raiting(raiting, user_password)
-        if final_raiting == 1 or final_raiting == 2:
-            print(f"The password is weak!\nTry again! {final_raiting}")
-        elif final_raiting == 3 or final_raiting == 4:
-            print(f"This password could be improved {final_raiting}")
+        #getting password rating    
+        final_rating = password_rating(rating, user_password)
+        if final_rating == 1 or final_rating == 2:
+            print(f"The password is weak!\nTry again! {final_rating}")
+        elif final_rating == 3 or final_rating == 4:
+            print(f"This password could be improved {final_rating}")
             improve_pass = input("Do you want to try again?(y/n)\n")
             if improve_pass == "n":
                 approved_pass = True
                 return user_password 
-        elif final_raiting == 5:
-            print(f"You have selected a strong password!{final_raiting}")
+        elif final_rating == 5:
+            print(f"You have selected a strong password!{final_rating}")
             approved_pass = True
             return user_password 
     
@@ -116,15 +116,18 @@ def change_password():
     if_user_exists = input("Enter USER ID\n")
     file = open("Users.csv", "r")
     reader = csv.reader(file)
+    
+    #copying data form csv to list in order to rewrite all after
     temp_list = []
     for row in reader:
-        temp_list.append(row)
-        
+        temp_list.append(row)        
     file.close()
+    
+    #searching for USER ID
     for row in temp_list:
         if temp_list[0][0] == if_user_exists:
             print("Found the USER ID!")
-            new_password = input("Enter a new password:\n")
+            new_password = approve_password()
             temp_list[0][1] = new_password
             print("Password changed successfully!")
             break
