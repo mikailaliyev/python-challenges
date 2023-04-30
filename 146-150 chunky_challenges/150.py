@@ -131,8 +131,17 @@ def clear():
 
 def sell_delete():
     art_title = input_sell_box.get()
-
+    #putting a record about to be deleted in a text file
+    file = open("Sold_arts.txt", "a")
+    cursor.execute("""SELECT Contacts.name, Arts.title, Arts.medium, Arts.price FROM Contacts, Arts 
+                   WHERE Contacts.artist_id = Arts.artist_id 
+                   AND Arts.title = ?""", [art_title])
+    for i in cursor.fetchall():
+        str(i)
+        file.write(", ".join(i) + "\n")
+    #actually deleting the record from the db
     cursor.execute("""DELETE FROM Arts WHERE title = ?""", [art_title])
+    
     db.commit()
     input_sell_box.delete(0, END)
 
