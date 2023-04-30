@@ -94,6 +94,7 @@ def add_art():
     db.commit()
     
 def search():
+    results_box.delete(0, END)
     #getting input data
     name = input_search_artist_name.get()
     medium = input_search_art_medium.get()
@@ -120,6 +121,21 @@ def search():
         item += 1
     results_box.insert(0, f"Found {records} records:") 
         
+        
+def clear():
+    results_box.delete(0, END)
+    input_search_artist_name.delete(0, END)
+    input_search_art_medium.delete(0, END)
+    input_search_art_price.delete(0, END)
+    input_sell_box.delete(0, END)
+
+def sell_delete():
+    art_title = input_sell_box.get()
+
+    cursor.execute("""DELETE FROM Arts WHERE title = ?""", [art_title])
+    db.commit()
+    input_sell_box.delete(0, END)
+
 #------GUI------
 window = Tk()
 window.title("Art Gallery")
@@ -172,7 +188,6 @@ arts_artist_id.place(x=20, y=180)
 input_arts_artist_id = Entry()
 input_arts_artist_id.place(x=100, y=183)
 
-
 art_title = Label(text="Title:")
 art_title.place(x=20, y=220)
 
@@ -194,12 +209,8 @@ input_art_price.place(x=380, y=223)
 button_add_artist = Button(text="Add art", command=add_art)
 button_add_artist.place(x= 380, y=261, width=125, height=25)
 
-button_sold = Button(text="Sold", command=search)
-button_sold.place(x= 380, y=300, width=125, height=25)
-
-
 #Search and sales part
-search_sales_part = Label(text="Search and Sales")
+search_sales_part = Label(text="Search: pick a field to search")
 search_sales_part.place(x=250, y=320)
 
 search_artist_name = Label(text="Artist name:")
@@ -222,7 +233,10 @@ input_search_art_price.place(x=100, y=403)
 
 
 button_add_artist = Button(text="Search", command=search)
-button_add_artist.place(x= 380, y=400, width=125, height=25)
+button_add_artist.place(x= 380, y=390, width=125, height=25)
+
+button_clear_search = Button(text="Clear", command=clear)
+button_clear_search.place(x= 380, y=420, width=125, height=25)
 
 results_part = Label(text="Results:")
 results_part.place(x=20, y=440)
@@ -234,6 +248,16 @@ results_box.pack(side = LEFT, fill = BOTH)
 results_box.config(yscrollcommand=scrollbar.set)
 results_box.place(x=22, y=460, width=483, height=80)
 scrollbar.config(command=results_box.yview)
+
+sell_box = Label(text="Enter art title to sell:")
+sell_box.place(x=22, y=560)
+
+input_sell_box = Entry()
+input_sell_box.place(x=140, y=563, width=160)
+
+
+button_sold = Button(text="Sold", command=sell_delete)
+button_sold.place(x= 380, y=560, width=125, height=25)
 
 window.mainloop()
 db.close()
